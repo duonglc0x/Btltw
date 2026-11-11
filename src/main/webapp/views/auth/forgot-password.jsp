@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <div class="page-wrap">
+    <div class="page-wrap auth-page">
         <div class="page-header">
             <h1>Quên mật khẩu</h1>
             <p>Nhập email để nhận mã OTP đặt lại mật khẩu</p>

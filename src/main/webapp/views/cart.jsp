@@ -57,7 +57,7 @@
 </style>
 </head>
 <body>
-	<div class="page-wrap">
+	<div class="page-wrap cart-page">
 		<div class="topbar">
 			<h1>Giỏ hàng của bạn</h1>
 			<c:choose>
@@ -118,7 +118,7 @@
 								<td>
 									<a class="item-info" href="<c:url value='/product/detail?id=${item.product.id}'/>">
 										<c:url value="/image?fname=${item.product.image}" var="imgUrl"/>
-										<img src="${imgUrl}" alt="${item.product.name}" onerror="this.src='https://placehold.co/64x64?text=No+Image'">
+										<img src="${imgUrl}" alt="${item.product.name}" data-fallback="product">
 										<div>
 											<div class="p-name">${item.product.name}</div>
 											<div class="p-cate">${item.product.category.name}</div>

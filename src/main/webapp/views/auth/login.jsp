@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-    <div class="page-wrap">
+    <div class="page-wrap auth-page">
         <div class="page-header">
             <h1>Đăng nhập</h1>
             <p>Đăng nhập để tiếp tục mua sắm</p>

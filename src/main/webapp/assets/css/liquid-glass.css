@@ -1,0 +1,319 @@
+/* Shared Liquid Glass theme. Loaded after each JSP's page-specific layout. */
+body.liquid-glass {
+    --ink: #183d36;
+    --muted: #60756f;
+    --accent: #216450;
+    --accent-dark: #164c3d;
+    --danger: #a33549;
+    --border: rgba(62, 108, 92, .16);
+    --surface: rgba(255, 255, 255, .63);
+    --glass-shadow: 0 16px 48px rgba(40, 79, 67, .07), inset 0 1px 0 rgba(255, 255, 255, .95);
+    --glass-radius: 26px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--ink);
+    background: #edf3ef;
+    background-image: radial-gradient(ellipse at 4% 15%, rgba(143, 208, 184, .44), transparent 42%), radial-gradient(ellipse at 94% 35%, rgba(179, 189, 231, .32), transparent 42%), radial-gradient(ellipse at 56% 90%, rgba(235, 213, 181, .25), transparent 46%);
+    background-attachment: fixed;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+.liquid-glass *, .liquid-glass *::before, .liquid-glass *::after { box-sizing: border-box; }
+.liquid-glass a { color: var(--accent); text-underline-offset: 4px; }
+.liquid-glass a:hover { color: var(--accent-dark); }
+.liquid-glass button, .liquid-glass input, .liquid-glass select, .liquid-glass textarea { font: inherit; }
+.liquid-glass button, .liquid-glass a, .liquid-glass input, .liquid-glass select, .liquid-glass textarea { -webkit-tap-highlight-color: transparent; }
+.liquid-glass :focus-visible { outline: 3px solid #2a866c; outline-offset: 4px; }
+.liquid-glass button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.liquid-glass img { max-width: 100%; }
+.liquid-glass ::selection { background: #c2e2d6; color: #183d36; }
+.liquid-glass .skip-link { position: fixed; left: 20px; top: -80px; z-index: 1000; padding: 12px 22px; border-radius: 14px; background: #fff; color: var(--ink); }
+.liquid-glass .skip-link:focus { top: 12px; }
+.liquid-glass .site-header { position: sticky; top: 16px; z-index: 100; padding: 0 24px; margin: 20px 0 0; }
+.liquid-glass .store-nav { max-width: 1264px; min-height: 84px; margin: 0 auto; display: flex; align-items: center; gap: 36px; padding: 15px 24px; border: 1px solid rgba(255,255,255,.92); border-radius: 24px; background: rgba(255,255,255,.72); box-shadow: 0 8px 32px rgba(49,86,72,.07), inset 0 1px 0 #fff; }
+.liquid-glass .store-brand { display: flex; gap: 11px; align-items: center; flex-shrink: 0; color: var(--ink); font-size: 21px; font-weight: 650; line-height: 1.25; letter-spacing: -.7px; text-decoration: none; }
+.liquid-glass .brand-icon { width: 39px; height: 39px; color: #39735c; padding: 3px; }
+.liquid-glass .brand-caption { display: block; margin-top: 5px; color: #758e81; font-size: 8px; font-weight: 600; letter-spacing: 2.3px; }
+.liquid-glass .nav-panel { display: flex; align-items: center; justify-content: space-between; flex: 1; gap: 18px; }
+.liquid-glass .nav-links, .liquid-glass .nav-actions { display: flex; align-items: center; gap: 7px; }
+.liquid-glass .nav-links > a, .liquid-glass .nav-actions > a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; padding: 9px 13px; color: var(--muted); font-size: 13px; font-weight: 500; border-radius: 14px; text-decoration: none; transition: background .2s, color .2s; white-space: nowrap; }
+.liquid-glass .nav-links > a:hover, .liquid-glass .nav-actions > a:hover { background: rgba(229,240,233,.8); color: var(--ink); }
+.liquid-glass .nav-links > a[aria-current="page"] { color: #235941; background: rgba(219,235,224,.72); box-shadow: inset 0 1px 0 rgba(255,255,255,.9); }
+.liquid-glass .nav-actions .nav-register { background: var(--accent); color: #fff; padding-inline: 18px; border: 1px solid rgba(255,255,255,.25); box-shadow: 0 4px 12px rgba(34,96,73,.12), inset 0 1px 0 rgba(255,255,255,.2); }
+.liquid-glass .nav-actions .nav-register:hover { background: var(--accent-dark); color: #fff; }
+.liquid-glass .nav-cart svg { width: 20px; height: 20px; }
+.liquid-glass .nav-actions .nav-cart { border-right: 1px solid var(--border); border-radius: 0; margin-right: 4px; padding-right: 18px; }
+.liquid-glass .nav-avatar { width: 28px; height: 28px; object-fit: cover; border-radius: 50%; }
+.liquid-glass .nav-account > span:last-child { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+.liquid-glass .account-dot { color: var(--accent); font-size: 22px; }
+.liquid-glass .menu-toggle { display: none; background: rgba(255,255,255,.6); border: 1px solid var(--border); border-radius: 13px; width: 44px; height: 44px; color: var(--ink); }
+.liquid-glass .menu-toggle svg { width: 24px; height: 24px; }
+.liquid-glass.storefront { display: flex; flex-direction: column; }
+.liquid-glass .site-main { flex: 1; width: 100%; }
+.liquid-glass .page-wrap { width: 100%; max-width: 1264px; margin: 0 auto; padding: 42px 24px 72px; }
+.liquid-glass .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 10px; font-weight: 650; letter-spacing: 2px; text-transform: uppercase; color: #376c57; }
+.liquid-glass .eyebrow::before { content: ""; display: block; width: 6px; height: 6px; background: #65977a; border-radius: 50%; box-shadow: 0 0 0 4px rgba(103,155,124,.1); }
+.liquid-glass .hero { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 26px; min-height: 465px; padding: 48px 52px; margin-bottom: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.95); border-radius: 34px; background: linear-gradient(115deg,rgba(255,255,255,.76),rgba(255,255,255,.28)); box-shadow: var(--glass-shadow); }
+.liquid-glass .hero::before { content: ""; position: absolute; width: 370px; height: 370px; right: 2%; top: 0; background: radial-gradient(circle,rgba(166,202,189,.35),transparent 69%); pointer-events: none; }
+.liquid-glass .hero-copy { position: relative; z-index: 2; }
+.liquid-glass .hero h1 { max-width: 570px; font-size: clamp(36px,4vw,56px); line-height: 1.18; letter-spacing: -2.1px; font-weight: 600; margin: 0 0 21px; color: var(--ink); }
+.liquid-glass .hero h1 em { color: #588a73; font-weight: 450; font-family: Georgia, "Times New Roman", serif; }
+.liquid-glass .hero p { max-width: 390px; font-size: 14px; line-height: 1.9; color: var(--muted); margin: 0 0 28px; }
+.liquid-glass .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.liquid-glass .hero-footnote { margin-top: 24px; font-size: 11px; color: #73857b; display: flex; align-items: center; gap: 8px; }
+.liquid-glass .hero-footnote span { color: #46765d; font-size: 16px; }
+.liquid-glass .btn-glass, .liquid-glass .btn-primary-glass { display: inline-flex; align-items: center; justify-content: center; gap: 20px; min-height: 48px; padding: 12px 21px; border: 1px solid rgba(255,255,255,.94); border-radius: 15px; font-size: 13px; font-weight: 600; color: var(--ink); background: rgba(255,255,255,.55); box-shadow: inset 0 1px 0 #fff, 0 3px 12px rgba(38,73,58,.04); text-decoration: none; transition: transform .2s, background .2s; }
+.liquid-glass .btn-primary-glass { color: #fff; background: var(--accent); border-color: rgba(255,255,255,.24); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 7px 18px rgba(29,87,64,.12); }
+.liquid-glass .btn-primary-glass:hover { color: #fff; background: var(--accent-dark); transform: translateY(-2px); }
+.liquid-glass .btn-glass:hover { color: var(--accent-dark); background: rgba(255,255,255,.85); transform: translateY(-2px); }
+.liquid-glass .hero-visual { position: relative; height: 350px; min-width: 0; }
+.liquid-glass .visual-orbit { position: absolute; width: 300px; height: 300px; border: 1px solid rgba(255,255,255,.8); border-radius: 50%; left: 50%; top: 48%; transform: translate(-50%,-50%); box-shadow: 0 0 0 38px rgba(255,255,255,.1), 0 0 0 39px rgba(255,255,255,.32); }
+.liquid-glass .glass-bag { position: absolute; width: 196px; height: 212px; left: 50%; top: 56%; transform: translate(-50%,-50%) rotate(-9deg); border-radius: 18px 18px 38px 38px; border: 1px solid rgba(255,255,255,.95); background: linear-gradient(132deg,rgba(255,255,255,.84),rgba(194,222,208,.5) 55%,rgba(255,255,255,.6)); box-shadow: inset 2px 2px 12px #fff, inset -7px -5px 17px rgba(117,158,137,.15), 16px 26px 42px rgba(66,111,86,.13); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.liquid-glass .glass-bag::before { content: ""; position: absolute; width: 85px; height: 80px; border: 9px solid rgba(255,255,255,.85); border-bottom: 0; border-radius: 45px 45px 0 0; left: 54px; top: -58px; box-shadow: inset 1px 0 0 #a5c4b2, 1px 0 0 #c8dbcf; }
+.liquid-glass .glass-bag svg { width: 58px; height: 58px; color: #739c83; opacity: .8; }
+.liquid-glass .bag-caption { margin-top: 10px; color: #4a735e; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.liquid-glass .glass-bag.small-bag { width: 129px; height: 143px; transform: translate(-50%,-50%) rotate(12deg); left: 78%; top: 64%; border-radius: 14px 14px 25px 25px; background: linear-gradient(135deg,rgba(255,255,255,.8),rgba(207,211,232,.65)); box-shadow: inset 1px 1px 10px #fff, 7px 15px 30px rgba(73,83,126,.12); }
+.liquid-glass .small-bag::before { width: 54px; height: 55px; left: 36px; top: -39px; border-width: 7px; }
+.liquid-glass .small-bag svg { width: 36px; height: 36px; color: #8f96b7; }
+.liquid-glass .floating-note { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid #fff; border-radius: 17px; background: rgba(255,255,255,.7); box-shadow: 0 8px 24px rgba(70,100,82,.06), inset 0 1px 0 #fff; font-size: 11px; color: var(--ink); }
+.liquid-glass .floating-note.note-top { top: 8px; right: 7%; transform: rotate(5deg); }
+.liquid-glass .floating-note.note-bottom { bottom: 13px; left: 3%; transform: rotate(-4deg); }
+.liquid-glass .floating-note .note-icon { display: grid; place-items: center; background: #e6efe5; border-radius: 11px; width: 34px; height: 34px; font-size: 17px; color: #60845f; }
+.liquid-glass .floating-note strong { display: block; font-size: 12px; font-weight: 600; }
+.liquid-glass .floating-note small { color: var(--muted); font-size: 10px; }
+.liquid-glass .store-promises { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.25); border-radius: 22px; margin-bottom: 45px; overflow: hidden; }
+.liquid-glass .promise { display: flex; align-items: center; gap: 13px; padding: 18px 24px; border-right: 1px solid rgba(121,153,135,.13); }
+.liquid-glass .promise:last-child { border-right: 0; }
+.liquid-glass .promise > svg { width: 25px; height: 25px; color: #719680; flex-shrink: 0; }
+.liquid-glass .promise strong { display: block; font-size: 12px; font-weight: 600; }
+.liquid-glass .promise small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+.liquid-glass .section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; margin-bottom: 22px; }
+.liquid-glass .section-kicker { color: #789084; text-transform: uppercase; font-size: 9px; font-weight: 600; letter-spacing: 2.2px; margin-bottom: 7px; }
+.liquid-glass .section-title { color: var(--ink); border: 0; padding: 0; margin: 0; font-size: 25px; line-height: 1.35; letter-spacing: -.8px; font-weight: 600; }
+.liquid-glass .section-link { display: inline-flex; gap: 16px; align-items: center; font-size: 12px; color: var(--accent); text-decoration: none; white-space: nowrap; }
+.liquid-glass .category-filter { display: flex; gap: 9px; flex-wrap: wrap; margin: 0 0 26px; }
+.liquid-glass .category-filter a { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 18px; border-radius: 13px; background: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.95); box-shadow: inset 0 1px 0 #fff; color: #557064; font-size: 12px; text-decoration: none; transition: background .2s, transform .2s; }
+.liquid-glass .category-filter a:hover { background: rgba(255,255,255,.9); transform: translateY(-1px); }
+.liquid-glass .category-filter a.active { background: #294f40; color: #fff; border-color: #294f40; box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
+.liquid-glass .product-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
+.liquid-glass .catalog-page .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.liquid-glass .product-card { display: block; width: auto; min-width: 0; position: relative; overflow: hidden; padding: 9px; border: 1px solid rgba(255,255,255,.95); border-radius: 24px; background: rgba(255,255,255,.54); box-shadow: var(--glass-shadow); text-decoration: none; color: var(--ink); transition: transform .24s, box-shadow .24s, background .24s; }
+.liquid-glass .product-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.76); border-color: #fff; box-shadow: 0 20px 40px rgba(35,83,59,.12), inset 0 1px 0 #fff; color: var(--ink); }
+.liquid-glass .product-card img { display: block; width: 100%; height: auto; aspect-ratio: 1.15; object-fit: cover; border: 0; border-radius: 17px; background: #e7eeea; }
+.liquid-glass .product-info { padding: 18px 12px 12px; }
+.liquid-glass .product-info .p-cate { color: #768a7f; font-size: 10px; margin: 0 0 7px; letter-spacing: .4px; }
+.liquid-glass .product-info .p-name { height: auto; min-height: 44px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 14px; font-weight: 600; line-height: 1.6; margin: 0 0 14px; }
+.liquid-glass .product-info .p-price { color: #285c43; font-size: 16px; font-weight: 650; letter-spacing: -.4px; display: flex; justify-content: space-between; align-items: center; }
+.liquid-glass .product-arrow { display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid rgba(92,139,108,.14); border-radius: 50%; background: rgba(255,255,255,.7); color: #5c7a64; font-size: 16px; font-weight: 400; }
+.liquid-glass .view-all { text-align: center; margin-top: 30px; }
+.liquid-glass .btn-view-all { display: inline-flex; align-items: center; gap: 28px; border: 1px solid rgba(255,255,255,.9); border-radius: 14px; background: rgba(255,255,255,.55); color: var(--accent); padding: 12px 22px; font-size: 12px; font-weight: 600; text-decoration: none; }
+.liquid-glass .btn-view-all:hover { background: rgba(255,255,255,.9); color: var(--accent-dark); }
+.liquid-glass .empty-box { border: 1px solid rgba(255,255,255,.95); border-radius: 26px; background: rgba(255,255,255,.45); box-shadow: var(--glass-shadow); text-align: center; padding: 50px 24px; color: var(--muted); }
+.liquid-glass .empty-box svg { display: block; width: 46px; height: 46px; margin: 0 auto 18px; color: #7b9d85; }
+.liquid-glass .empty-box h3 { color: var(--ink); font-size: 18px; margin: 0 0 9px; font-weight: 600; }
+.liquid-glass .empty-box p { margin-bottom: 0; font-size: 13px; }
+.liquid-glass .topbar, .liquid-glass .page-header { border-bottom: 1px solid var(--border); padding-bottom: 22px; margin: 0 0 28px; }
+.liquid-glass .topbar h1, .liquid-glass .page-header h1 { color: var(--ink); font-size: 32px; line-height: 1.3; font-weight: 600; letter-spacing: -1px; margin: 0; }
+.liquid-glass .topbar p, .liquid-glass .page-header p { font-size: 13px; color: var(--muted); margin-top: 9px; }
+.liquid-glass .pagination > li > a, .liquid-glass .pagination > li > span { min-width: 40px; min-height: 40px; border: 1px solid rgba(255,255,255,.95); background: rgba(255,255,255,.6); color: var(--accent); border-radius: 12px !important; margin: 0 4px; }
+.liquid-glass .pagination > .active > a { background: var(--accent); border-color: var(--accent); color: #fff; }
+.liquid-glass .pagination > .disabled > a { color: #809088; background: rgba(255,255,255,.4); pointer-events: none; }
+.liquid-glass .pagination-wrap { margin-top: 28px; text-align: center; }
+.liquid-glass .form-card, .liquid-glass .stat-card, .liquid-glass .search-card, .liquid-glass .result-card, .liquid-glass .current-image-box { background: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.95); border-radius: var(--glass-radius); box-shadow: var(--glass-shadow); }
+.liquid-glass .form-card { padding: 32px; }
+.liquid-glass .form-group { margin-bottom: 22px; }
+.liquid-glass .form-group label { display: block; margin-bottom: 9px; font-size: 13px; font-weight: 600; color: #3e6151; }
+.liquid-glass .form-control, .liquid-glass .qty-form input { width: 100%; height: auto; min-height: 47px; padding: 12px 15px; border: 1px solid rgba(85,127,107,.17); border-radius: 13px; background: rgba(255,255,255,.67); box-shadow: inset 0 2px 4px rgba(53,93,70,.025); font-size: 14px; color: var(--ink); transition: border-color .2s, box-shadow .2s; }
+.liquid-glass .form-control:focus { outline: 0; border-color: #74a68b; background: rgba(255,255,255,.9); box-shadow: 0 0 0 4px rgba(84,143,108,.1); }
+.liquid-glass textarea.form-control { min-height: 125px; resize: vertical; }
+.liquid-glass .form-control[readonly] { background: rgba(219,231,222,.4); color: #697f70; }
+.liquid-glass .form-control::placeholder { color: #8b9a91; }
+.liquid-glass .form-group input[type="file"] { height: auto; min-height: 48px; border-radius: 13px; background: rgba(255,255,255,.6); border: 1px solid var(--border); padding: 8px; font-size: 12px; width: 100%; }
+.liquid-glass input::file-selector-button { border: 0; border-radius: 8px; background: #e0ece4; color: #38634c; padding: 7px 12px; margin-right: 12px; cursor: pointer; }
+.liquid-glass input[type="radio"], .liquid-glass input[type="checkbox"] { accent-color: var(--accent); }
+.liquid-glass .role-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.liquid-glass .role-option { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: rgba(255,255,255,.55); font-size: 12px; flex: 1; }
+.liquid-glass .btn, .liquid-glass .btn-add, .liquid-glass .btn-cart, .liquid-glass .btn-buy, .liquid-glass .btn-checkout, .liquid-glass .btn-clear { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 20px; font-size: 13px; font-weight: 600; line-height: 1.5; border-radius: 13px; border: 1px solid rgba(255,255,255,.7); text-decoration: none; transition: background .2s, box-shadow .2s, transform .2s; }
+.liquid-glass .btn-success, .liquid-glass .btn-add, .liquid-glass .btn-buy, .liquid-glass .btn-checkout { color: #fff; background: var(--accent); border-color: rgba(255,255,255,.3); box-shadow: inset 0 1px 0 rgba(255,255,255,.24), 0 5px 12px rgba(38,88,60,.08); }
+.liquid-glass .btn-success:hover, .liquid-glass .btn-add:hover, .liquid-glass .btn-buy:hover, .liquid-glass .btn-checkout:hover { background: var(--accent-dark); color: #fff; transform: translateY(-1px); }
+.liquid-glass .btn-primary, .liquid-glass .btn-default, .liquid-glass .btn-cart, .liquid-glass .cart-table .btn-primary { background: rgba(255,255,255,.65); color: var(--accent); border: 1px solid rgba(86,132,104,.2); }
+.liquid-glass .btn-primary:hover, .liquid-glass .btn-default:hover, .liquid-glass .btn-cart:hover, .liquid-glass .cart-table .btn-primary:hover { background: #e2eee5; color: var(--accent-dark); }
+.liquid-glass .btn-danger, .liquid-glass .btn-clear, .liquid-glass .cart-table .btn-danger { color: var(--danger); border: 1px solid rgba(161,53,73,.2); background: rgba(255,240,243,.65); }
+.liquid-glass .btn-danger:hover, .liquid-glass .btn-clear:hover { background: #f6dce1; color: #7e2637; }
+.liquid-glass .btn-info { color: #36637d; background: rgba(221,237,249,.8); border-color: rgba(85,127,157,.15); }
+.liquid-glass .btn-sm, .liquid-glass .cart-table .btn-sm { min-height: 34px; padding: 7px 13px; font-size: 11px; border-radius: 10px; }
+.liquid-glass .btn-group-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.liquid-glass .upload-hint { font-size: 12px; color: var(--muted); }
+.liquid-glass .bottom-link, .liquid-glass .link-row { font-size: 12px; }
+.liquid-glass .bottom-link { margin-top: 24px; color: var(--muted); text-align: center; }
+.liquid-glass .link-row { margin: -4px 0 22px; display: flex; justify-content: space-between; }
+.liquid-glass .link-row a { color: var(--accent); }
+.liquid-glass .auth-page { max-width: 500px; padding-top: 58px; padding-bottom: 70px; margin: 0 auto; }
+.liquid-glass .auth-page .page-header { text-align: center; border: 0; margin-bottom: 27px; }
+.liquid-glass .auth-page .page-header::before { content: "CHÂU DƯỠNG SHOP"; display: block; font-size: 9px; letter-spacing: 2.3px; color: #6c927c; margin-bottom: 12px; }
+.liquid-glass .auth-page .form-card { padding: 32px; }
+.liquid-glass .auth-page .btn-success { width: 100%; }
+.liquid-glass .auth-page input[name="otp"] { text-align: center; letter-spacing: 10px; font-size: 24px; }
+.liquid-glass .profile-page { max-width: 720px; }
+.liquid-glass .avatar-preview { width: 88px; height: 88px; border: 4px solid rgba(255,255,255,.9); box-shadow: 0 3px 16px rgba(46,91,61,.1); }
+.liquid-glass .alert { border-radius: 15px; padding: 14px 18px; border-width: 1px; font-size: 13px; }
+.liquid-glass .alert-danger { background: rgba(255,234,238,.85); color: #8c3649; border-color: rgba(171,73,91,.15); }
+.liquid-glass .alert-success { background: rgba(220,242,229,.85); color: #386c4e; border-color: rgba(74,133,94,.15); }
+.liquid-glass .detail-card { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: rgba(255,255,255,.55); border: 1px solid #fff; border-radius: 30px; padding: 12px; overflow: hidden; box-shadow: var(--glass-shadow); }
+.liquid-glass .detail-img { width: auto; border: 0; background: rgba(230,238,231,.6); border-radius: 22px; display: flex; align-items: center; justify-content: center; min-width: 0; }
+.liquid-glass .detail-img img { width: 100%; height: 100%; min-height: 360px; max-height: 550px; object-fit: contain; border-radius: 22px; }
+.liquid-glass .detail-info { padding: 30px; min-width: 0; }
+.liquid-glass .detail-info h1 { font-size: 32px; line-height: 1.35; letter-spacing: -.8px; margin-top: 12px; }
+.liquid-glass .detail-info .p-price { color: var(--accent); font-size: 29px; }
+.liquid-glass .detail-info .p-desc { color: var(--muted); font-size: 14px; }
+.liquid-glass .detail-info .p-cate { color: #6c8c77; text-transform: uppercase; letter-spacing: 1.5px; font-size: 10px; }
+.liquid-glass .stock-line { display: inline-block; border-radius: 9px; padding: 5px 10px; font-size: 11px; background: #e2eee4; }
+.liquid-glass .stock-line.out { color: #a04255; background: #f4e4e9; }
+.liquid-glass .qty-stepper { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: rgba(255,255,255,.7); }
+.liquid-glass .qty-stepper button { min-width: 38px; min-height: 38px; border: 0; background: transparent; color: var(--accent); }
+.liquid-glass .qty-stepper input { background: transparent; border: 0; }
+.liquid-glass .action-row { gap: 10px; }
+.liquid-glass .back-link { font-size: 12px; color: var(--accent); }
+.liquid-glass .toast-notify { background: #285e45; color: #fff; border: 1px solid rgba(255,255,255,.3); border-radius: 16px; padding: 16px 23px; box-shadow: 0 12px 32px rgba(30,73,49,.18); }
+.liquid-glass .cart-page { max-width: 1160px; }
+.liquid-glass .cart-table, .liquid-glass .admin-content table { border-collapse: separate; border-spacing: 0; border: 1px solid rgba(255,255,255,.95); border-radius: 22px; background: rgba(255,255,255,.58); box-shadow: var(--glass-shadow); overflow: hidden; }
+.liquid-glass .cart-table th, .liquid-glass .admin-content th { padding: 17px 18px; font-size: 10px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.35); }
+.liquid-glass .cart-table td, .liquid-glass .admin-content td { padding: 16px 18px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 13px; }
+.liquid-glass .cart-table tr:last-child td, .liquid-glass .admin-content tr:last-child td { border-bottom: 0; }
+.liquid-glass .cart-table .item-info img, .liquid-glass .thumb { border-radius: 12px; border-color: rgba(255,255,255,.9); }
+.liquid-glass .cart-summary { background: rgba(255,255,255,.67); border: 1px solid #fff; border-radius: 22px; box-shadow: var(--glass-shadow); padding: 23px 28px; }
+.liquid-glass .cart-summary .total-value { font-size: 27px; color: var(--accent); }
+.liquid-glass .qty-form input { min-height: 35px; width: 62px; padding: 7px; font-size: 12px; }
+.liquid-glass .site-footer { margin-top: 12px; border-top: 1px solid rgba(255,255,255,.8); background: rgba(255,255,255,.32); }
+.liquid-glass .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; max-width: 1264px; margin: 0 auto; padding: 30px 24px; }
+.liquid-glass .footer-brand { font-size: 20px; letter-spacing: -.6px; font-weight: 600; }
+.liquid-glass .footer-inner p { margin: 5px 0 0; color: var(--muted); font-size: 11px; }
+.liquid-glass .footer-credit { text-align: right; font-size: 11px; color: #677f70; line-height: 1.9; }
+.liquid-glass .footer-credit span { color: #83978a; }
+.liquid-glass .admin-layout { display: flex; max-width: 1600px; min-height: 100vh; margin: 0 auto; padding: 20px; gap: 24px; }
+.liquid-glass .admin-sidebar { position: sticky; top: 20px; align-self: flex-start; flex: 0 0 235px; max-width: 235px; min-height: calc(100vh - 40px); padding: 30px 14px 22px; border: 1px solid rgba(255,255,255,.9); border-radius: 25px; color: var(--ink); background: rgba(255,255,255,.55); box-shadow: var(--glass-shadow); }
+.liquid-glass .admin-brand { color: var(--ink); font-size: 20px; font-weight: 600; letter-spacing: -.6px; padding: 0 14px 32px; }
+.liquid-glass .admin-brand span { display: block; margin-top: 8px; color: #75917f; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; }
+.liquid-glass .admin-nav { margin: 0 0 24px; padding: 0; list-style: none; }
+.liquid-glass .admin-nav li a { display: block; color: #607c6b; padding: 12px 15px; margin-bottom: 5px; border: 1px solid transparent; border-radius: 13px; text-decoration: none; font-size: 13px; }
+.liquid-glass .admin-nav li a:hover { background: rgba(255,255,255,.8); color: var(--ink); }
+.liquid-glass .admin-nav li a.active { color: #fff; background: #2c624a; border-color: rgba(255,255,255,.35); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 4px 10px rgba(48,97,68,.1); }
+.liquid-glass .admin-nav-heading { color: #7f9687; padding: 0 15px 12px; font-size: 9px; text-transform: uppercase; letter-spacing: 1.6px; }
+.liquid-glass .admin-nav-divider { border-top: 1px solid var(--border); margin: 16px 12px; }
+.liquid-glass .admin-sidebar-bottom { display: flex; flex-direction: column; gap: 12px; padding: 20px 15px 0; border-top: 1px solid var(--border); }
+.liquid-glass .admin-sidebar-bottom a { color: var(--muted); font-size: 11px; text-decoration: none; }
+.liquid-glass .admin-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.liquid-glass .admin-topbar { display: flex; justify-content: space-between; align-items: center; gap: 14px; min-height: 66px; padding: 18px 25px; border: 1px solid rgba(255,255,255,.9); border-radius: 20px; background: rgba(255,255,255,.48); box-shadow: var(--glass-shadow); }
+.liquid-glass .admin-topbar-title { color: #6b8675; font-size: 12px; }
+.liquid-glass .admin-topbar-user { color: var(--ink); font-size: 12px; }
+.liquid-glass .admin-content { flex: 1; padding: 35px 4px; }
+.liquid-glass .admin-content .page-wrap { padding: 0; max-width: none; }
+.liquid-glass .admin-content .form-card { max-width: 920px; }
+.liquid-glass .admin-content .topbar { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.liquid-glass .admin-content .topbar h1 { font-size: 27px; }
+.liquid-glass .admin-content .btn-add { margin-bottom: 23px; }
+.liquid-glass .admin-content .section-title { font-size: 20px; margin-bottom: 20px; }
+.liquid-glass .stat-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; margin-bottom: 36px; }
+.liquid-glass .stat-card { padding: 26px; }
+.liquid-glass .stat-card .stat-label { color: var(--muted); font-size: 12px; }
+.liquid-glass .stat-card .stat-value { color: var(--ink); font-size: 46px; line-height: 1.4; letter-spacing: -2px; }
+.liquid-glass .stat-card a.stat-link { color: var(--accent); font-size: 12px; }
+.liquid-glass .admin-footer { border-top: 1px solid var(--border); padding: 20px 5px; color: #7b9382; font-size: 11px; }
+.liquid-glass .table-hover > tbody > tr:hover { background: rgba(230,241,232,.6); }
+@supports ((backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px))) {
+    .liquid-glass .store-nav, .liquid-glass .hero, .liquid-glass .floating-note, .liquid-glass .form-card, .liquid-glass .admin-sidebar, .liquid-glass .admin-topbar { -webkit-backdrop-filter: blur(22px) saturate(135%); backdrop-filter: blur(22px) saturate(135%); }
+    .liquid-glass .glass-bag { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+}
+@media (min-width: 1440px) { .liquid-glass .hero { min-height: 490px; } }
+@media (max-width: 1100px) {
+    .liquid-glass .store-nav { gap: 18px; padding-inline: 18px; }
+    .liquid-glass .nav-panel { gap: 8px; }
+    .liquid-glass .nav-links > a, .liquid-glass .nav-actions > a { padding-inline: 9px; font-size: 12px; }
+    .liquid-glass .hero { padding: 38px; }
+    .liquid-glass .hero-visual { transform: scale(.9); transform-origin: center; }
+    .liquid-glass .product-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .liquid-glass .promise { padding: 18px; }
+    .liquid-glass .admin-layout { gap: 18px; }
+    .liquid-glass .admin-sidebar { flex-basis: 210px; max-width: 210px; }
+}
+@media (max-width: 860px) {
+    .liquid-glass .site-header { top: 10px; padding: 0 16px; margin-top: 14px; }
+    .liquid-glass .store-nav { flex-wrap: wrap; justify-content: space-between; min-height: 74px; padding: 12px 17px; border-radius: 20px; gap: 0; }
+    .liquid-glass .store-brand { font-size: 20px; }
+    .liquid-glass .menu-toggle { display: grid; place-items: center; }
+    .liquid-glass .nav-panel { display: none; flex: 0 0 100%; padding: 18px 0 6px; margin-top: 14px; border-top: 1px solid var(--border); }
+    .liquid-glass .nav-panel.is-open { display: flex; flex-direction: column; align-items: stretch; gap: 16px; }
+    .liquid-glass .nav-links { flex-wrap: wrap; }
+    .liquid-glass .nav-actions { flex-wrap: wrap; }
+    .liquid-glass .nav-actions > a, .liquid-glass .nav-links > a { padding: 10px 14px; font-size: 13px; }
+    .liquid-glass .nav-actions .nav-logout { display: inline-flex; }
+    .liquid-glass .page-wrap { padding: 30px 20px 55px; }
+    .liquid-glass .hero { padding: 32px; gap: 4px; min-height: 420px; }
+    .liquid-glass .hero h1 { font-size: 39px; letter-spacing: -1.5px; }
+    .liquid-glass .hero-visual { transform: scale(.8); }
+    .liquid-glass .floating-note.note-top { right: -16px; }
+    .liquid-glass .promise { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .liquid-glass .detail-info { padding: 22px; }
+    .liquid-glass .detail-info h1 { font-size: 25px; }
+    .liquid-glass .admin-layout { flex-direction: column; padding: 16px; }
+    .liquid-glass .admin-sidebar { position: static; min-height: auto; max-width: none; width: 100%; flex-basis: auto; padding: 20px; }
+    .liquid-glass .admin-brand { padding: 0 0 20px; }
+    .liquid-glass .admin-brand span { display: inline; margin-left: 10px; }
+    .liquid-glass .admin-nav { display: flex; flex-wrap: wrap; gap: 5px; margin: 0; }
+    .liquid-glass .admin-nav li a { margin: 0; padding: 9px 13px; }
+    .liquid-glass .admin-sidebar-bottom { flex-direction: row; flex-wrap: wrap; gap: 16px; margin-top: 16px; padding: 14px 0 0; }
+    .liquid-glass .admin-nav-heading, .liquid-glass .admin-nav-divider { display: none; }
+    .liquid-glass .admin-content { padding: 24px 0; }
+    .liquid-glass .admin-content table { display: block; max-width: 100%; overflow-x: auto; }
+    .liquid-glass .admin-content .topbar { align-items: flex-start; flex-wrap: wrap; }
+    .liquid-glass .auth-page { padding-top: 42px; }
+}
+@media (max-width: 600px) {
+    .liquid-glass .page-wrap { padding-inline: 16px; }
+    .liquid-glass .hero { grid-template-columns: 1fr; padding: 29px 25px 20px; border-radius: 27px; }
+    .liquid-glass .hero-copy { max-width: 450px; }
+    .liquid-glass .hero h1 { font-size: 41px; max-width: 370px; }
+    .liquid-glass .hero p { font-size: 13px; margin-bottom: 22px; }
+    .liquid-glass .hero-actions { gap: 8px; }
+    .liquid-glass .btn-glass, .liquid-glass .btn-primary-glass { padding-inline: 16px; gap: 14px; font-size: 12px; }
+    .liquid-glass .hero-footnote { margin-top: 18px; }
+    .liquid-glass .hero-visual { width: 100%; height: 285px; transform: scale(.83); margin: -8px 0 -20px; }
+    .liquid-glass .floating-note.note-top { right: 0; top: 0; }
+    .liquid-glass .floating-note.note-bottom { left: -8px; bottom: 0; }
+    .liquid-glass .store-promises { margin-bottom: 34px; }
+    .liquid-glass .promise { padding: 16px 12px; }
+    .liquid-glass .promise strong { font-size: 10px; }
+    .liquid-glass .promise small { font-size: 10px; }
+    .liquid-glass .promise > svg { width: 22px; height: 22px; }
+    .liquid-glass .section-title { font-size: 23px; }
+    .liquid-glass .section-link { font-size: 11px; gap: 7px; }
+    .liquid-glass .product-grid, .liquid-glass .catalog-page .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+    .liquid-glass .product-card { padding: 6px; border-radius: 20px; }
+    .liquid-glass .product-card img { border-radius: 14px; aspect-ratio: 1; }
+    .liquid-glass .product-info { padding: 12px 8px 9px; }
+    .liquid-glass .product-info .p-name { font-size: 12px; min-height: 38px; margin-bottom: 9px; }
+    .liquid-glass .product-info .p-price { font-size: 13px; }
+    .liquid-glass .product-arrow { width: 24px; height: 24px; font-size: 13px; }
+    .liquid-glass .category-filter { gap: 7px; }
+    .liquid-glass .category-filter a { font-size: 11px; min-height: 37px; padding: 8px 14px; }
+    .liquid-glass .detail-card { grid-template-columns: 1fr; }
+    .liquid-glass .detail-img img { min-height: 250px; max-height: 350px; }
+    .liquid-glass .detail-info { padding: 20px 14px; }
+    .liquid-glass .form-card, .liquid-glass .auth-page .form-card { padding: 25px 21px; border-radius: 22px; }
+    .liquid-glass .topbar h1, .liquid-glass .page-header h1 { font-size: 28px; }
+    .liquid-glass .stat-grid { grid-template-columns: 1fr; gap: 14px; }
+    .liquid-glass .stat-card { padding: 22px; }
+    .liquid-glass .cart-table tr { border-bottom: 7px solid rgba(231,240,232,.6); }
+    .liquid-glass .cart-table td { padding: 8px 16px; }
+    .liquid-glass .cart-summary { justify-content: space-between; gap: 10px; padding: 22px; }
+    .liquid-glass .cart-summary .total-label { font-size: 12px; }
+    .liquid-glass .cart-summary .total-value { font-size: 24px; }
+    .liquid-glass .footer-inner { padding: 26px 20px; align-items: flex-start; }
+    .liquid-glass .footer-brand { font-size: 18px; }
+    .liquid-glass .footer-credit { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .liquid-glass *, .liquid-glass *::before, .liquid-glass *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <div class="page-wrap">
+    <div class="page-wrap auth-page">
         <div class="page-header">
             <h1>Xác thực OTP</h1>
             <p>Nhập mã OTP đã gửi tới email <b>${email}</b> để kích hoạt tài khoản</p>

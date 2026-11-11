@@ -36,9 +36,10 @@
 </style>
 </head>
 <body>
-	<div class="page-wrap">
+	<div class="page-wrap catalog-page">
 		<div class="topbar">
-			<h1>Tất cả sản phẩm</h1>
+			<div class="eyebrow">THE EVERYDAY COLLECTION</div>
+			<h1>Tìm món đồ bạn yêu thích.</h1>
 			<p>Trang ${currentPage} / ${totalPages}</p>
 		</div>
 
@@ -59,11 +60,11 @@
 					<c:forEach items="${productList}" var="p">
 						<a class="product-card" href="<c:url value='/product/detail?id=${p.id}'/>">
 							<c:url value="/image?fname=${p.image}" var="imgUrl"></c:url>
-							<img src="${imgUrl}" alt="${p.name}" onerror="this.src='https://placehold.co/300x200?text=No+Image'">
+							<img src="${imgUrl}" alt="<c:out value='${p.name}'/>" loading="lazy" data-fallback="product">
 							<div class="product-info">
 								<div class="p-cate">${p.category.name}</div>
 								<div class="p-name">${p.name}</div>
-								<div class="p-price"><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> đ</div>
+								<div class="p-price"><span><fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> đ</span><span class="product-arrow" aria-hidden="true">↗</span></div>
 							</div>
 						</a>
 					</c:forEach>

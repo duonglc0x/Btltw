@@ -234,7 +234,7 @@
                                 width="110"
                                 src="${imgUrl}"
                                 alt="Icon"
-                                onerror="this.src='https://placehold.co/80x60?text=No+Image'" />
+                                data-fallback="product" />
 
                         </td>
 

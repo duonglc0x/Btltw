@@ -53,7 +53,7 @@
                     </c:url>
 
                     <img src="${imgUrl}" class="img-responsive" alt="Uploaded Image" style="max-height: 400px; margin: 0 auto;"
-                         onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Khong+Tim+Thay+Anh';" />
+                         data-fallback="product" />
                 </div>
             </div>
         </c:if>

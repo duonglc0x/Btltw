@@ -55,7 +55,7 @@
 		<div class="detail-card">
 			<div class="detail-img">
 				<c:url value="/image?fname=${product.image}" var="imgUrl"></c:url>
-				<img src="${imgUrl}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/500x400?text=No+Image'">
+				<img src="${imgUrl}" alt="${product.name}" data-fallback="product">
 			</div>
 			<div class="detail-info">
 				<div class="p-cate">${product.category.name}</div>

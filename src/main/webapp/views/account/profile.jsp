@@ -24,7 +24,7 @@
 </style>
 </head>
 <body>
-	<div class="page-wrap">
+	<div class="page-wrap profile-page">
 		<div class="page-header">
 			<h1>Hồ sơ cá nhân</h1>
 			<p>Cập nhật họ tên, số điện thoại và ảnh đại diện của bạn</p>
@@ -45,10 +45,10 @@
 						<c:when test="${not empty account.avatar}">
 							<c:url value="/image?fname=${account.avatar}" var="avatarUrl"/>
 							<img class="avatar-preview" id="avatarPreview" src="${avatarUrl}" alt="avatar"
-								onerror="this.src='https://placehold.co/84x84?text=%20'">
+								data-fallback="avatar">
 						</c:when>
 						<c:otherwise>
-							<img class="avatar-preview" id="avatarPreview" src="https://placehold.co/84x84?text=%20" alt="avatar">
+							<img class="avatar-preview" id="avatarPreview" src="${pageContext.request.contextPath}/assets/images/avatar.svg" alt="avatar">
 						</c:otherwise>
 					</c:choose>
 					<div class="avatar-pick">

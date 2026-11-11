@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    <div class="page-wrap">
+    <div class="page-wrap auth-page">
         <div class="page-header">
             <h1>Đăng ký tài khoản</h1>
             <p>Tạo tài khoản mới để bắt đầu mua sắm</p>

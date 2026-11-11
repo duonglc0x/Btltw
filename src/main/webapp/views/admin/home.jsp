@@ -180,7 +180,7 @@
                                         <c:param name="fname" value="${p.image}" />
                                     </c:url>
                                     <img class="thumb" height="52" width="70" src="${imgUrl}" alt="Ảnh"
-                                        onerror="this.src='https://placehold.co/70x52?text=No+Image'" />
+                                        data-fallback="product" />
                                 </td>
                                 <td>${p.name}</td>
                                 <td>${p.category.name}</td>

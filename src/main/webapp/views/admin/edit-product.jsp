@@ -349,7 +349,7 @@
                         <img
                             src="${imgUrl}"
                             alt="Ảnh hiện tại"
-                            onerror="this.src='https://via.placeholder.com/120x100?text=No+Image'">
+                            data-fallback="product">
 
                     </div>
 

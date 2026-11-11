@@ -277,7 +277,7 @@
                             width="120px"
                             src="${imgUrl}"
                             alt="Current Image"
-                            onerror="this.src='https://via.placeholder.com/120x100?text=No+Image'"
+                            data-fallback="product"
                             style="margin: 0 auto; border-radius: 0;">
 
                     </div>
