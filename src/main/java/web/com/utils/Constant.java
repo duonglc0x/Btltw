@@ -12,5 +12,6 @@ public class Constant {
 	
 	public static final int OTP_EXPIRE_MINUTES = 5;
 	public static final int PRODUCT_PAGE_SIZE = 6;
+	public static final int VIDEO_PAGE_SIZE = 6;
 	public static final int HOME_LATEST_PRODUCT_COUNT = 10;
 }

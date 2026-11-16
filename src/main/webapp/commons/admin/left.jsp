@@ -6,6 +6,7 @@
 	<div class="admin-brand">Châu Dưỡng <span>Admin</span></div>
 
 	<ul class="admin-nav">
+		<li><a href="<c:url value='/admin/video/list'/>" class="${fn:contains(uri, '/admin/video') ? 'active' : ''}">Quản lý video</a></li>
 		<li><a href="<c:url value='/admin/home'/>" class="${fn:contains(uri, '/admin/home') ? 'active' : ''}">Trang chủ</a></li>
 		<li><a href="<c:url value='/admin/category/list'/>" class="${fn:contains(uri, '/admin/category') ? 'active' : ''}">Quản lý danh mục</a></li>
 		<li><a href="<c:url value='/admin/product/list'/>" class="${fn:contains(uri, '/admin/product') ? 'active' : ''}">Quản lý sản phẩm</a></li>

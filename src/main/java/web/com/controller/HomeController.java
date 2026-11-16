@@ -16,6 +16,7 @@ import web.com.service.CategoryService;
 import web.com.service.ProductService;
 import web.com.service.impl.CategoryServiceImpl;
 import web.com.service.impl.ProductServiceImpl;
+import web.com.service.VideoService;
 import web.com.utils.Constant;
 
 @WebServlet(urlPatterns = { "/home" })
@@ -23,6 +24,7 @@ public class HomeController extends HttpServlet {
 
     private final ProductService productService = new ProductServiceImpl();
     private final CategoryService categoryService = new CategoryServiceImpl();
+    private final VideoService videoService = new VideoService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -33,6 +35,7 @@ public class HomeController extends HttpServlet {
 
         req.setAttribute("latestProducts", latestProducts);
         req.setAttribute("categories", categories);
+        req.setAttribute("latestVideos", videoService.getPage(1, Constant.VIDEO_PAGE_SIZE));
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/home.jsp");
         dispatcher.forward(req, resp);

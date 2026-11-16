@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <sitemesh:write property="head"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/liquid-glass.css?v=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/video.css">
 <script src="${pageContext.request.contextPath}/assets/js/storefront.js?v=1" defer></script>
 </head>
 <body class="liquid-glass storefront">

@@ -62,6 +62,12 @@
         </c:choose>
         <div class="view-all"><a href="<c:url value='/product'/>" class="btn-view-all">Xem tất cả sản phẩm <span aria-hidden="true">↗</span></a></div>
     </section>
+    <section class="home-videos" aria-labelledby="home-video-title">
+        <div class="section-heading"><div><div class="section-kicker">KHÁM PHÁ SẢN PHẨM</div><h2 class="section-title" id="home-video-title">Video giới thiệu và hướng dẫn</h2></div><a class="section-link" href="<c:url value='/video'/>">Tất cả video ↗</a></div>
+        <c:choose><c:when test="${empty latestVideos}"><div class="empty-box">Chưa có video nào.</div></c:when><c:otherwise>
+            <c:set var="videos" value="${latestVideos}" scope="request"/><jsp:include page="video-cards.jsp"/>
+        </c:otherwise></c:choose>
+    </section>
 </div>
 </body>
 </html>

@@ -11,6 +11,7 @@
         </button>
         <div class="nav-panel" id="store-menu">
             <div class="nav-links">
+                <a data-nav="video" href="<c:url value='/video'/>">Video</a>
                 <a data-nav="home" href="<c:url value='/home'/>">Trang chủ</a>
                 <a data-nav="product" href="<c:url value='/product'/>">Sản phẩm</a>
                 <c:if test="${not empty sessionScope.account && sessionScope.account.role == 'ADMIN'}"><a href="<c:url value='/admin/home'/>">Quản trị</a></c:if>
