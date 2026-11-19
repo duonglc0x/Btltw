@@ -245,7 +245,7 @@
                         <td>
 
                             <c:url
-                                value="/views/admin/download.jsp"
+                                value="/admin/category/image-preview"
                                 var="downloadTestUrl">
 
                                 <c:param

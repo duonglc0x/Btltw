@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
+    <decorator-prefix>/WEB-INF/decorators/</decorator-prefix>
+    <mime-type>text/html</mime-type>
 
+    <mapping path="/assets/*" exclude="true"/>
     <mapping path="/image" exclude="true"/>
     <mapping path="/image/*" exclude="true"/>
     <mapping path="/video/stream" exclude="true"/>
-    
-    <mapping path="/admin/*" name="admin" decorator="admin.jsp"/>
-    <mapping path="/*" name="web" decorator="web.jsp"/>
 
+    <mapping path="/admin/*" decorator="admin.jsp"/>
+    <mapping path="/*" decorator="web.jsp"/>
 </sitemesh>
