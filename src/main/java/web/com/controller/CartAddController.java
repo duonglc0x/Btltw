@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import web.com.models.Account;
 import web.com.service.CartService;
 import web.com.service.impl.CartServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/cart/add" })
 public class CartAddController extends HttpServlet {
@@ -28,32 +29,19 @@ public class CartAddController extends HttpServlet {
         HttpSession session = req.getSession(false);
         Account account = (Account) session.getAttribute("account");
 
-        int productId;
-
-        try {
-            productId = Integer.parseInt(req.getParameter("productId"));
-        } catch (NumberFormatException e) {
-            if (isAjax) {
-                writeJson(resp, HttpServletResponse.SC_BAD_REQUEST, false,
-                        "Sản phẩm không hợp lệ.", null);
-            } else {
-                resp.sendRedirect(req.getContextPath() + "/product");
-            }
+        int productId = FormValidation.positiveInteger(req.getParameter("productId"), 0);
+        String quantityParam = req.getParameter("quantity");
+        int quantity = quantityParam == null ? 1 : FormValidation.positiveInteger(quantityParam, 0);
+        if (productId == 0 || quantity == 0) {
+            String error = productId == 0 ? "Sản phẩm không hợp lệ." : "Số lượng phải là số nguyên lớn hơn 0.";
+            writeError(resp, isAjax, HttpServletResponse.SC_BAD_REQUEST, error);
             return;
         }
 
-        int quantity = 1;
-        String qtyParam = req.getParameter("quantity");
-
-        if (qtyParam != null) {
-            try {
-                quantity = Integer.parseInt(qtyParam);
-            } catch (NumberFormatException e) {
-                quantity = 1;
-            }
+        if (!cartService.addToCart(account, productId, quantity)) {
+            writeError(resp, isAjax, HttpServletResponse.SC_CONFLICT, "Sản phẩm không còn hàng hoặc không tồn tại.");
+            return;
         }
-
-        cartService.addToCart(account, productId, quantity);
 
         int cartCount = cartService.getTotalItemCount(account);
         session.setAttribute("cartCount", cartCount);
@@ -63,6 +51,14 @@ public class CartAddController extends HttpServlet {
                     "Đã thêm sản phẩm vào giỏ hàng!", cartCount);
         } else {
             resp.sendRedirect(req.getContextPath() + "/cart");
+        }
+    }
+
+    private void writeError(HttpServletResponse resp, boolean ajax, int status, String error) throws IOException {
+        if (ajax) {
+            writeJson(resp, status, false, error, null);
+        } else {
+            resp.sendError(status, error);
         }
     }
 

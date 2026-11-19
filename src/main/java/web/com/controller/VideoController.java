@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import web.com.models.Video;
 import web.com.service.VideoService;
 import web.com.utils.Constant;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = {"/video", "/video/detail"})
 public class VideoController extends HttpServlet {
@@ -32,7 +33,6 @@ public class VideoController extends HttpServlet {
         req.getRequestDispatcher("/views/video-list.jsp").forward(req, resp);
     }
     static int positiveInt(String value, int fallback) {
-        try { int parsed = Integer.parseInt(value); return parsed > 0 ? parsed : fallback; }
-        catch (NumberFormatException e) { return fallback; }
+        return FormValidation.positiveInteger(value, fallback);
     }
 }

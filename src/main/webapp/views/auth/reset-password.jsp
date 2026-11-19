@@ -32,22 +32,22 @@
 
         <div class="form-card">
             <c:if test="${not empty error}">
-                <div class="alert alert-danger">${error}</div>
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
             </c:if>
 
             <form action="<c:url value='/reset-password'/>" method="post">
-                <input type="hidden" name="email" value="${email}">
+                <input type="hidden" name="email" value="<c:out value='${email}'/>">
                 <div class="form-group">
                     <label>Mã OTP</label>
-                    <input type="text" class="form-control" name="otp" maxlength="6" required>
+                    <input type="text" class="form-control" name="otp" maxlength="6" minlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" required>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu mới</label>
-                    <input type="password" class="form-control" name="newPassword" required>
+                    <input type="password" class="form-control" name="newPassword" maxlength="255" required>
                 </div>
                 <div class="form-group">
                     <label>Xác nhận mật khẩu</label>
-                    <input type="password" class="form-control" name="confirmPassword" required>
+                    <input type="password" class="form-control" name="confirmPassword" maxlength="255" required>
                 </div>
                 <button type="submit" class="btn btn-success">Đặt lại mật khẩu</button>
             </form>

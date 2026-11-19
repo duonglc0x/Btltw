@@ -14,6 +14,7 @@ import web.com.models.Video;
 import web.com.service.VideoService;
 import web.com.service.VideoStorage;
 import web.com.service.VideoThumbnailStorage;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = {"/admin/video/list", "/admin/video/add", "/admin/video/edit", "/admin/video/delete"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = VideoStorage.MAX_SIZE, maxRequestSize = VideoStorage.MAX_SIZE + VideoThumbnailStorage.MAX_SIZE + 1024 * 1024)
@@ -61,22 +62,19 @@ public class AdminVideoController extends HttpServlet {
             boolean editing = path.endsWith("/edit");
             Video video = editing ? find(req) : new Video();
             if (video == null) { resp.sendError(HttpServletResponse.SC_NOT_FOUND); return; }
-            video.setTitle(value(req, "title"));
-            video.setDescription(value(req, "description"));
+            video.setTitle(FormValidation.text(req.getParameter("title")));
+            video.setDescription(FormValidation.text(req.getParameter("description")));
             video.setActive("on".equals(req.getParameter("active")));
             Part part = req.getPart("videoFile");
             Part image = req.getPart("thumbnailFile");
-            boolean hasImage = image != null && image.getSize() > 0;
+            boolean hasImage = hasUpload(image);
             String oldImage = video.getThumbnailUrl();
-            boolean hasFile = part != null && part.getSize() > 0;
+            boolean hasFile = hasUpload(part);
             String oldFile = video.getVideoUrl();
-            String fileError = hasFile || !editing ? storage.validate(part) : null;
-            if (hasFile && fileError == null) video.setVideoUrl("pending");
-            String error = service.validate(video);
-            if (fileError != null) error = fileError;
+            String error = service.validate(video, hasFile, hasImage);
+            if (error == null && hasFile) error = storage.validate(part);
             if (error == null && hasImage) error = thumbnails.validate(image);
             if (error != null) {
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 req.setAttribute("error", error); req.setAttribute("video", video); req.setAttribute("editing", editing);
                 req.getRequestDispatcher("/views/admin/video-form.jsp").forward(req, resp); return;
             }
@@ -105,8 +103,8 @@ public class AdminVideoController extends HttpServlet {
         int id = VideoController.positiveInt(req.getParameter("id"), 0);
         return id == 0 ? null : service.get(id);
     }
-    private String value(HttpServletRequest req, String name) {
-        String value = req.getParameter(name); return value == null ? "" : value.trim();
+    private boolean hasUpload(Part part) {
+        return part != null && (part.getSize() > 0 || !FormValidation.text(part.getSubmittedFileName()).isEmpty());
     }
     private void csrfToken(HttpSession session) {
         if (session.getAttribute("videoCsrf") == null) session.setAttribute("videoCsrf", UUID.randomUUID().toString());

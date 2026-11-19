@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import web.com.service.AccountService;
 import web.com.service.impl.AccountServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/reset-password" })
 public class ResetPasswordController extends HttpServlet {
@@ -37,15 +38,14 @@ public class ResetPasswordController extends HttpServlet {
         String newPassword = req.getParameter("newPassword");
         String confirmPassword = req.getParameter("confirmPassword");
 
-        if (newPassword == null || !newPassword.equals(confirmPassword)) {
-            req.setAttribute("error", "Mật khẩu xác nhận không khớp.");
-            req.setAttribute("email", email);
-
-            req.getRequestDispatcher("/views/auth/reset-password.jsp").forward(req, resp);
-            return;
+        String error = FormValidation.passwordError(newPassword);
+        if (error == null && !newPassword.equals(confirmPassword)) {
+            error = "Mật khẩu xác nhận không khớp.";
         }
 
-        String error = accountService.resetPassword(email, otp, newPassword);
+        if (error == null) {
+            error = accountService.resetPassword(email, otp, newPassword);
+        }
 
         if (error != null) {
             req.setAttribute("error", error);

@@ -13,9 +13,9 @@ public interface CartService {
 
     Cart getCart(Account account);
 
-    void addToCart(Account account, int productId, int quantity);
+    boolean addToCart(Account account, int productId, int quantity);
 
-    void updateQuantity(Account account, int itemId, int quantity);
+    boolean updateQuantity(Account account, int itemId, int quantity);
 
     void removeItem(Account account, int itemId);
 

@@ -32,13 +32,13 @@
 
         <div class="form-card">
             <c:if test="${not empty error}">
-                <div class="alert alert-danger">${error}</div>
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
             </c:if>
 
             <form action="<c:url value='/forgot-password'/>" method="post">
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="${email}" required>
+                    <input type="email" class="form-control" name="email" value="<c:out value='${email}'/>" maxlength="150" required>
                 </div>
                 <button type="submit" class="btn btn-success">Gửi mã OTP</button>
             </form>

@@ -226,6 +226,9 @@
         </div>
 
         <div class="form-card">
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
+            </c:if>
 
             <c:url value="/admin/product/edit" var="editUrl" />
 
@@ -250,7 +253,8 @@
                         type="text"
                         class="form-control"
                         name="name"
-                        value="${product.name}"
+                        value="<c:out value='${not empty error ? param.name : product.name}'/>"
+                        maxlength="255"
                         required />
 
                 </div>
@@ -265,6 +269,9 @@
                         class="form-control"
                         name="cateId"
                         required>
+                        <c:if test="${not empty error}">
+                            <option value="">Chọn danh mục</option>
+                        </c:if>
 
                         <c:forEach
                             items="${cateList}"
@@ -272,9 +279,9 @@
 
                             <option
                                 value="${c.id}"
-                                ${c.id == product.category.id ? 'selected' : ''}>
+                                ${c.id == (not empty error ? submittedCategoryId : product.category.id) ? 'selected' : ''}>
 
-                                ${c.name}
+                                <c:out value="${c.name}"/>
 
                             </option>
 
@@ -296,7 +303,7 @@
                         min="0"
                         class="form-control"
                         name="price"
-                        value="${product.price}"
+                        value="<c:out value='${not empty error ? param.price : product.price}'/>"
                         required />
 
                 </div>
@@ -312,7 +319,8 @@
                         min="0"
                         class="form-control"
                         name="quantity"
-                        value="${product.quantity}"
+                        max="2147483647"
+                        value="<c:out value='${not empty error ? param.quantity : product.quantity}'/>"
                         required />
 
                 </div>
@@ -326,7 +334,8 @@
                     <textarea
                         class="form-control"
                         name="description"
-                        rows="4">${product.description}</textarea>
+                        maxlength="2000"
+                        rows="4"><c:out value="${not empty error ? param.description : product.description}"/></textarea>
 
                 </div>
 
@@ -360,6 +369,7 @@
                     <input
                         type="file"
                         name="image"
+                        accept="image/jpeg,image/png,image/gif"
                         class="form-control" />
 
                 </div>

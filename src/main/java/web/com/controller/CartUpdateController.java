@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import web.com.models.Account;
 import web.com.service.CartService;
 import web.com.service.impl.CartServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/cart/update" })
 public class CartUpdateController extends HttpServlet {
@@ -27,13 +28,15 @@ public class CartUpdateController extends HttpServlet {
         HttpSession session = req.getSession(false);
         Account account = (Account) session.getAttribute("account");
 
-        try {
-            int itemId = Integer.parseInt(req.getParameter("itemId"));
-            int quantity = Integer.parseInt(req.getParameter("quantity"));
-
-            cartService.updateQuantity(account, itemId, quantity);
-
-        } catch (NumberFormatException e) {
+        int itemId = FormValidation.positiveInteger(req.getParameter("itemId"), 0);
+        int quantity = FormValidation.positiveInteger(req.getParameter("quantity"), 0);
+        if (itemId == 0 || quantity == 0) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mã mặt hàng hoặc số lượng không hợp lệ.");
+            return;
+        }
+        if (!cartService.updateQuantity(account, itemId, quantity)) {
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "Mặt hàng không tồn tại hoặc đã hết hàng.");
+            return;
         }
 
         resp.sendRedirect(req.getContextPath() + "/cart");

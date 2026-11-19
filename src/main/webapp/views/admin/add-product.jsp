@@ -213,6 +213,9 @@
         </div>
 
         <div class="form-card">
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
+            </c:if>
 
             <form
                 role="form"
@@ -230,6 +233,8 @@
                         type="text"
                         class="form-control"
                         name="name"
+                        value="<c:out value='${param.name}'/>"
+                        maxlength="255"
                         required />
 
                 </div>
@@ -244,13 +249,16 @@
                         class="form-control"
                         name="cateId"
                         required>
+                        <c:if test="${not empty error}">
+                            <option value="">Chọn danh mục</option>
+                        </c:if>
 
                         <c:forEach
                             items="${cateList}"
                             var="c">
 
-                            <option value="${c.id}">
-                                ${c.name}
+                            <option value="${c.id}" ${c.id == submittedCategoryId ? 'selected' : ''}>
+                                <c:out value="${c.name}"/>
                             </option>
 
                         </c:forEach>
@@ -271,6 +279,7 @@
                         min="0"
                         class="form-control"
                         name="price"
+                        value="<c:out value='${param.price}'/>"
                         required />
 
                 </div>
@@ -286,7 +295,8 @@
                         min="0"
                         class="form-control"
                         name="quantity"
-                        value="0"
+                        max="2147483647"
+                        value="<c:out value='${not empty error ? param.quantity : 0}'/>"
                         required />
 
                 </div>
@@ -300,7 +310,8 @@
                     <textarea
                         class="form-control"
                         name="description"
-                        rows="4"></textarea>
+                        maxlength="2000"
+                        rows="4"><c:out value="${param.description}"/></textarea>
 
                 </div>
 
@@ -313,6 +324,7 @@
                     <input
                         type="file"
                         name="image"
+                        accept="image/jpeg,image/png,image/gif"
                         class="form-control" />
 
                 </div>

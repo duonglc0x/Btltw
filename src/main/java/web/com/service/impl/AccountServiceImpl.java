@@ -1,11 +1,14 @@
 package web.com.service.impl;
 
+import java.util.Locale;
+
 import jakarta.mail.MessagingException;
 import web.com.dao.AccountDAO;
 import web.com.dao.impl.AccountDAOImpl;
 import web.com.models.Account;
 import web.com.models.Role;
 import web.com.service.AccountService;
+import web.com.utils.FormValidation;
 import web.com.utils.MailUtil;
 import web.com.utils.OtpUtil;
 
@@ -13,20 +16,31 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountDAO accountDAO = new AccountDAOImpl();
 
-    private Role parseRole(String roleParam) {
-        if (roleParam != null && Role.ADMIN.name().equalsIgnoreCase(roleParam.trim())) {
-            return Role.ADMIN;
-        }
-        return Role.USER;
-    }
-
     @Override
     public String register(String username, String password, String email, String fullName, String roleParam) {
 
-        if (username == null || username.isBlank()
-                || password == null || password.isBlank()
-                || email == null || email.isBlank()) {
-            return "Vui lòng nhập đầy đủ thông tin.";
+        username = FormValidation.text(username);
+        email = FormValidation.text(email);
+        fullName = FormValidation.text(fullName);
+        if (username.isEmpty() || username.length() > 100) {
+            return "Tên đăng nhập là bắt buộc và không được quá 100 ký tự.";
+        }
+        if (!FormValidation.isEmail(email)) {
+            return "Vui lòng nhập email hợp lệ, tối đa 150 ký tự.";
+        }
+        String error = FormValidation.profileError(fullName, null);
+        if (error == null) {
+            error = FormValidation.passwordError(password);
+        }
+        if (error != null) {
+            return error;
+        }
+        Role role;
+        try {
+            String roleValue = FormValidation.text(roleParam);
+            role = roleValue.isEmpty() ? Role.USER : Role.valueOf(roleValue.toUpperCase(Locale.ROOT));
+        } catch (IllegalArgumentException e) {
+            return "Loại tài khoản không hợp lệ.";
         }
 
         if (accountDAO.getByUsername(username) != null) {
@@ -40,7 +54,6 @@ public class AccountServiceImpl implements AccountService {
         }
 
         String otp = OtpUtil.generateOtp();
-        Role role = parseRole(roleParam);
 
         try {
             if (existedByEmail != null) {
@@ -73,7 +86,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String verifyRegisterOtp(String email, String otp) {
-
+        email = FormValidation.text(email);
+        if (!FormValidation.isEmail(email)) {
+            return "Vui lòng nhập email hợp lệ.";
+        }
+        otp = FormValidation.text(otp);
+        if (!FormValidation.isOtp(otp)) {
+            return "Mã OTP phải gồm đúng 6 chữ số.";
+        }
         Account account = accountDAO.getByEmail(email);
 
         if (account == null) {
@@ -103,7 +123,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String resendActivationOtp(String email) {
-
+        email = FormValidation.text(email);
+        if (!FormValidation.isEmail(email)) {
+            return "Vui lòng nhập email hợp lệ.";
+        }
         Account account = accountDAO.getByEmail(email);
 
         if (account == null) {
@@ -133,7 +156,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account login(String usernameOrEmail, String password) {
 
-        if (usernameOrEmail == null || password == null) {
+        String identifier = FormValidation.text(usernameOrEmail);
+        if (identifier.isEmpty() || usernameOrEmail.length() > 150
+                || FormValidation.passwordError(password) != null) {
             return null;
         }
 
@@ -141,6 +166,12 @@ public class AccountServiceImpl implements AccountService {
 
         if (account == null) {
             account = accountDAO.getByEmail(usernameOrEmail);
+        }
+        if (account == null && !identifier.equals(usernameOrEmail)) {
+            account = accountDAO.getByUsername(identifier);
+            if (account == null) {
+                account = accountDAO.getByEmail(identifier);
+            }
         }
 
         if (account == null) {
@@ -160,7 +191,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String sendForgotPasswordOtp(String email) {
-
+        email = FormValidation.text(email);
+        if (!FormValidation.isEmail(email)) {
+            return "Vui lòng nhập email hợp lệ.";
+        }
         Account account = accountDAO.getByEmail(email);
 
         if (account == null) {
@@ -189,7 +223,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String resetPassword(String email, String otp, String newPassword) {
-
+        email = FormValidation.text(email);
+        if (!FormValidation.isEmail(email)) {
+            return "Vui lòng nhập email hợp lệ.";
+        }
+        otp = FormValidation.text(otp);
+        if (!FormValidation.isOtp(otp)) {
+            return "Mã OTP phải gồm đúng 6 chữ số.";
+        }
+        String error = FormValidation.passwordError(newPassword);
+        if (error != null) {
+            return error;
+        }
         Account account = accountDAO.getByEmail(email);
 
         if (account == null) {
@@ -204,9 +249,6 @@ public class AccountServiceImpl implements AccountService {
             return "Mã OTP đã hết hạn. Vui lòng yêu cầu gửi lại mã mới.";
         }
 
-        if (newPassword == null || newPassword.isBlank()) {
-            return "Vui lòng nhập mật khẩu mới.";
-        }
 
         account.setPassword(newPassword);
         account.setOtpCode(null);
@@ -224,19 +266,18 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String updateProfile(int id, String fullName, String phone, String avatarPath) {
-
+        String error = FormValidation.profileError(fullName, phone);
+        if (error != null) {
+            return error;
+        }
         Account account = accountDAO.get(id);
 
         if (account == null) {
             return "Tài khoản không tồn tại.";
         }
 
-        if (fullName == null || fullName.isBlank()) {
-            return "Vui lòng nhập họ tên.";
-        }
-
-        account.setFullName(fullName.trim());
-        account.setPhone(phone == null ? null : phone.trim());
+        account.setFullName(FormValidation.text(fullName));
+        account.setPhone(phone == null ? null : FormValidation.text(phone));
 
         if (avatarPath != null && !avatarPath.isBlank()) {
             account.setAvatar(avatarPath);

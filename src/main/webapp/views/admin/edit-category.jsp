@@ -225,6 +225,9 @@
 
 
         <div class="form-card">
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
+            </c:if>
 
             <c:url value="/admin/category/edit" var="editUrl" />
 
@@ -248,8 +251,9 @@
                     <input
                         type="text"
                         class="form-control"
-                        value="${category.name}"
+                        value="<c:out value='${not empty error ? param.name : category.name}'/>"
                         name="name"
+                        maxlength="255"
                         required />
 
                 </div>
@@ -290,6 +294,7 @@
                     <input
                         type="file"
                         name="icon"
+                        accept="image/jpeg,image/png,image/gif"
                         class="form-control" />
 
                 </div>

@@ -197,10 +197,13 @@
         </div>
 
         <div class="form-card">
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
+            </c:if>
 
             <form
                 role="form"
-                action="add"
+                action="<c:url value='/admin/category/add'/>"
                 method="post"
                 enctype="multipart/form-data">
                 
@@ -214,6 +217,8 @@
                         class="form-control"
                         placeholder="Nhập tên danh mục"
                         name="name"
+                        value="<c:out value='${param.name}'/>"
+                        maxlength="255"
                         required />
                 </div>
                 
@@ -224,12 +229,13 @@
                     </label>
 
                     <div class="upload-hint">
-                        Chọn hình ảnh đại diện cho danh mục (JPG, PNG...)
+                        Chọn ảnh JPEG, PNG hoặc GIF, tối đa 5 MB.
                     </div>
 
                     <input
                         type="file"
                         name="icon"
+                        accept="image/jpeg,image/png,image/gif"
                         class="form-control" />
 
                 </div>

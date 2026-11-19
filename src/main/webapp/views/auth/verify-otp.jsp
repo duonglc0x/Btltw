@@ -32,17 +32,17 @@
 
         <div class="form-card">
             <c:if test="${not empty error}">
-                <div class="alert alert-danger">${error}</div>
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
             </c:if>
             <c:if test="${not empty message}">
                 <div class="alert alert-success">${message}</div>
             </c:if>
 
             <form action="<c:url value='/verify-otp'/>" method="post">
-                <input type="hidden" name="email" value="${email}">
+                <input type="hidden" name="email" value="<c:out value='${email}'/>">
                 <div class="form-group">
                     <label>Mã OTP</label>
-                    <input type="text" class="form-control" name="otp" maxlength="6" placeholder="------" required>
+                    <input type="text" class="form-control" name="otp" maxlength="6" placeholder="------" minlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" required>
                 </div>
                 <button type="submit" class="btn btn-success" style="margin-top:10px;">Xác nhận</button>
             </form>

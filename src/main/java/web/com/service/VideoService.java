@@ -14,12 +14,15 @@ public class VideoService {
     public void save(Video video) { dao.save(video); }
     public boolean delete(int id) { return dao.delete(id); }
 
-    public String validate(Video video) {
-        if (video.getTitle().isBlank() || video.getTitle().length() > 255)
+    public String validate(Video video, boolean replacingVideo, boolean replacingThumbnail) {
+        if (video.getTitle() == null || video.getTitle().isBlank() || video.getTitle().length() > 255)
             return "Tiêu đề là bắt buộc và không được quá 255 ký tự.";
-        if (video.getDescription().length() > 2000) return "Mô tả không được quá 2000 ký tự.";
-        if (video.getVideoUrl() == null || video.getVideoUrl().isBlank()) return "Vui lòng chọn tệp video MP4.";
-        if (video.getThumbnailUrl() != null && !video.getThumbnailUrl().isEmpty() && !validUrl(video.getThumbnailUrl())
+        if (video.getDescription() != null && video.getDescription().length() > 2000)
+            return "Mô tả không được quá 2000 ký tự.";
+        if (!replacingVideo && (video.getVideoUrl() == null || video.getVideoUrl().isBlank()))
+            return "Vui lòng chọn tệp video MP4.";
+        if (!replacingThumbnail && video.getThumbnailUrl() != null && !video.getThumbnailUrl().isEmpty()
+                && !validUrl(video.getThumbnailUrl())
                 && new VideoThumbnailStorage().resolve(video.getThumbnailUrl()) == null)
             return "URL ảnh đại diện phải là URL HTTP hoặc HTTPS hợp lệ.";
         return null;

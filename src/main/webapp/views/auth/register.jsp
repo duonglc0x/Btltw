@@ -37,25 +37,25 @@
 
         <div class="form-card">
             <c:if test="${not empty error}">
-                <div class="alert alert-danger">${error}</div>
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
             </c:if>
 
             <form action="<c:url value='/register'/>" method="post">
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    <input type="text" class="form-control" name="fullName" value="${fullName}" placeholder="Nhập họ tên" required>
+                    <input type="text" class="form-control" name="fullName" value="<c:out value='${fullName}'/>" placeholder="Nhập họ tên" maxlength="255" required>
                 </div>
                 <div class="form-group">
                     <label>Tên đăng nhập</label>
-                    <input type="text" class="form-control" name="username" value="${username}" placeholder="Nhập tên đăng nhập" required>
+                    <input type="text" class="form-control" name="username" value="<c:out value='${username}'/>" placeholder="Nhập tên đăng nhập" maxlength="100" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="${email}" placeholder="Nhập email nhận OTP" required>
+                    <input type="email" class="form-control" name="email" value="<c:out value='${email}'/>" placeholder="Nhập email nhận OTP" maxlength="150" required>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
-                    <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" required>
+                    <input type="password" class="form-control" name="password" placeholder="Nhập mật khẩu" maxlength="255" required>
                 </div>
                 <div class="form-group">
                     <label>Loại tài khoản</label>

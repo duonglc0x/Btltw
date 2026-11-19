@@ -1,6 +1,5 @@
 package web.com.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -15,11 +14,13 @@ import jakarta.servlet.http.Part;
 
 import web.com.models.Account;
 import web.com.service.AccountService;
+import web.com.service.ImageUpload;
 import web.com.service.impl.AccountServiceImpl;
-import web.com.utils.Constant;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/profile" })
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = ImageUpload.MAX_SIZE,
+        maxRequestSize = ImageUpload.MAX_REQUEST_SIZE)
 public class ProfileController extends HttpServlet {
 
     private final AccountService accountService = new AccountServiceImpl();
@@ -57,51 +58,51 @@ public class ProfileController extends HttpServlet {
             return;
         }
 
+        Part avatarPart;
+        try {
+            avatarPart = ImageUpload.readPart(req, "avatar");
+        } catch (IllegalStateException e) {
+            resp.sendError(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE, ImageUpload.SIZE_ERROR);
+            return;
+        } catch (ServletException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Dữ liệu tải lên không hợp lệ.");
+            return;
+        }
         String fullName = req.getParameter("fullName");
         String phone = req.getParameter("phone");
-
-        String avatarPath = null; // null = giữ nguyên ảnh cũ
-
-        Part avatarPart = req.getPart("avatar");
-
-        if (avatarPart != null
-                && avatarPart.getSize() > 0
-                && avatarPart.getSubmittedFileName() != null
-                && !avatarPart.getSubmittedFileName().isBlank()) {
-
-            String originalName = new File(avatarPart.getSubmittedFileName()).getName();
-            String extension = "";
-            int index = originalName.lastIndexOf('.');
-
-            if (index >= 0) {
-                extension = originalName.substring(index);
+        String error = FormValidation.profileError(fullName, phone);
+        String extension = null;
+        if (error == null) {
+            try {
+                extension = ImageUpload.validatedExtension(avatarPart);
+            } catch (IllegalArgumentException e) {
+                error = e.getMessage();
             }
-
-            String fileName = "acc" + sessionAccount.getId() + "_" + System.currentTimeMillis() + extension;
-
-            File uploadDir = new File(Constant.DIR, "avatar");
-
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
-            }
-
-            File file = new File(uploadDir, fileName);
-            avatarPart.write(file.getAbsolutePath());
-
-            avatarPath = "avatar/" + fileName;
         }
-
-        String error = accountService.updateProfile(sessionAccount.getId(), fullName, phone, avatarPath);
-
-        Account updated = accountService.getById(sessionAccount.getId());
-
         if (error != null) {
             req.setAttribute("error", error);
-            req.setAttribute("account", updated);
+            req.setAttribute("account", sessionAccount);
             req.getRequestDispatcher("/views/account/profile.jsp").forward(req, resp);
             return;
         }
 
+        String avatarPath = ImageUpload.save(avatarPart, extension, "avatar");
+        try {
+            error = accountService.updateProfile(sessionAccount.getId(), fullName, phone, avatarPath);
+        } catch (RuntimeException e) {
+            ImageUpload.discard(avatarPath, e);
+            throw e;
+        }
+
+        if (error != null) {
+            ImageUpload.delete(avatarPath);
+            req.setAttribute("error", error);
+            req.setAttribute("account", sessionAccount);
+            req.getRequestDispatcher("/views/account/profile.jsp").forward(req, resp);
+            return;
+        }
+
+        Account updated = accountService.getById(sessionAccount.getId());
         session.setAttribute("account", updated);
 
         req.setAttribute("message", "Cập nhật hồ sơ thành công.");

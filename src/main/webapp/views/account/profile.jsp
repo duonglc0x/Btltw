@@ -32,7 +32,7 @@
 
 		<div class="form-card">
 			<c:if test="${not empty error}">
-				<div class="alert alert-danger">${error}</div>
+				<div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
 			</c:if>
 			<c:if test="${not empty message}">
 				<div class="alert alert-success">${message}</div>
@@ -52,7 +52,7 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="avatar-pick">
-						<input type="file" name="avatar" id="avatarInput" accept="image/*" style="display:none"
+						<input type="file" name="avatar" id="avatarInput" accept="image/jpeg,image/png,image/gif" style="display:none"
 							onchange="previewAvatar(this)">
 						<label for="avatarInput">Đổi ảnh đại diện...</label>
 					</div>
@@ -70,13 +70,15 @@
 
 				<div class="form-group">
 					<label>Họ và tên</label>
-					<input type="text" class="form-control" name="fullName" value="${account.fullName}" required>
+					<input type="text" class="form-control" name="fullName" maxlength="255"
+						value="<c:out value='${not empty error ? param.fullName : account.fullName}'/>" required>
 				</div>
 
 				<div class="form-group">
 					<label>Số điện thoại</label>
-					<input type="text" class="form-control" name="phone" value="${account.phone}"
-						pattern="^[0-9+ ]{8,15}$" placeholder="VD: 0908617108">
+					<input type="tel" class="form-control" name="phone" maxlength="15"
+						value="<c:out value='${not empty error ? param.phone : account.phone}'/>"
+						pattern="\+?[0-9][0-9 ]{6,13}[0-9]" placeholder="VD: 0908617108">
 				</div>
 
 				<button type="submit" class="btn btn-success" style="margin-top:8px;">Lưu thay đổi</button>

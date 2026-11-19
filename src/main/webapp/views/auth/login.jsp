@@ -34,21 +34,21 @@
 
         <div class="form-card">
             <c:if test="${not empty error}">
-                <div class="alert alert-danger">${error}</div>
+                <div class="alert alert-danger" role="alert"><c:out value="${error}"/></div>
             </c:if>
             <c:if test="${not empty message}">
                 <div class="alert alert-success">${message}</div>
             </c:if>
 
             <form action="<c:url value='/login'/>" method="post">
-                <input type="hidden" name="redirect" value="${param.redirect}">
+                <input type="hidden" name="redirect" value="<c:out value='${param.redirect}'/>">
                 <div class="form-group">
                     <label>Tên đăng nhập / Email</label>
-                    <input type="text" class="form-control" name="username" value="${username}" required>
+                    <input type="text" class="form-control" name="username" value="<c:out value='${username}'/>" maxlength="150" required>
                 </div>
                 <div class="form-group">
                     <label>Mật khẩu</label>
-                    <input type="password" class="form-control" name="password" required>
+                    <input type="password" class="form-control" name="password" maxlength="255" required>
                 </div>
                 <div class="link-row">
                     <span></span>

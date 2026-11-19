@@ -41,16 +41,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addToCart(Account account, int productId, int quantity) {
+    public boolean addToCart(Account account, int productId, int quantity) {
 
         if (quantity < 1) {
-            quantity = 1;
+            return false;
         }
 
         Product product = productDAO.get(productId);
 
-        if (product == null) {
-            return;
+        if (product == null || product.getQuantity() < 1) {
+            return false;
         }
 
         Cart cart = getOrCreateCart(account);
@@ -59,51 +59,45 @@ public class CartServiceImpl implements CartService {
 
         if (existing != null) {
 
-            int newQty = existing.getQuantity() + quantity;
-
-            if (product.getQuantity() > 0 && newQty > product.getQuantity()) {
-                newQty = product.getQuantity();
-            }
-
+            int newQty = (int) Math.min((long) existing.getQuantity() + quantity, product.getQuantity());
             existing.setQuantity(newQty);
             existing.setPrice(product.getPrice());
             cartItemDAO.update(existing);
 
         } else {
 
-            if (product.getQuantity() > 0 && quantity > product.getQuantity()) {
-                quantity = product.getQuantity();
-            }
-
+            quantity = Math.min(quantity, product.getQuantity());
             CartItem item = new CartItem(cart, product, quantity);
             cartItemDAO.insert(item);
         }
 
         cartDAO.touchUpdatedAt(cart.getId());
+        return true;
     }
 
     @Override
-    public void updateQuantity(Account account, int itemId, int quantity) {
+    public boolean updateQuantity(Account account, int itemId, int quantity) {
 
         if (quantity < 1) {
-            quantity = 1;
+            return false;
         }
 
         CartItem item = cartItemDAO.getById(itemId);
 
         if (item == null || item.getCart().getAccount().getId() != account.getId()) {
-            return;
+            return false;
         }
 
         Product product = item.getProduct();
 
-        if (product.getQuantity() > 0 && quantity > product.getQuantity()) {
-            quantity = product.getQuantity();
+        if (product.getQuantity() < 1) {
+            return false;
         }
 
-        item.setQuantity(quantity);
+        item.setQuantity(Math.min(quantity, product.getQuantity()));
         cartItemDAO.update(item);
         cartDAO.touchUpdatedAt(item.getCart().getId());
+        return true;
     }
 
     @Override

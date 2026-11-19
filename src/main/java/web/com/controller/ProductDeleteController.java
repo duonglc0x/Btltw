@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import web.com.service.ProductService;
 import web.com.service.impl.ProductServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/admin/product/delete" })
 public class ProductDeleteController extends HttpServlet {
@@ -20,9 +21,12 @@ public class ProductDeleteController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String id = req.getParameter("id");
-
-        productService.delete(Integer.parseInt(id));
+        int id = FormValidation.positiveInteger(req.getParameter("id"), 0);
+        if (id == 0) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        productService.delete(id);
 
         resp.sendRedirect(req.getContextPath() + "/admin/product/list");
     }

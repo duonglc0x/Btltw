@@ -1,6 +1,8 @@
 package web.com.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import web.com.service.AccountService;
 import web.com.service.impl.AccountServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/forgot-password" })
 public class ForgotPasswordController extends HttpServlet {
@@ -30,7 +33,7 @@ public class ForgotPasswordController extends HttpServlet {
 
         req.setCharacterEncoding("UTF-8");
 
-        String email = req.getParameter("email");
+        String email = FormValidation.text(req.getParameter("email"));
 
         String error = accountService.sendForgotPasswordOtp(email);
 
@@ -42,6 +45,7 @@ public class ForgotPasswordController extends HttpServlet {
             return;
         }
 
-        resp.sendRedirect(req.getContextPath() + "/reset-password?email=" + email);
+        resp.sendRedirect(req.getContextPath() + "/reset-password?email="
+                + URLEncoder.encode(email, StandardCharsets.UTF_8));
     }
 }

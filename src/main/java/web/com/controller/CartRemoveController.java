@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import web.com.models.Account;
 import web.com.service.CartService;
 import web.com.service.impl.CartServiceImpl;
+import web.com.utils.FormValidation;
 
 @WebServlet(urlPatterns = { "/cart/remove" })
 public class CartRemoveController extends HttpServlet {
@@ -27,12 +28,12 @@ public class CartRemoveController extends HttpServlet {
         HttpSession session = req.getSession(false);
         Account account = (Account) session.getAttribute("account");
 
-        try {
-            int itemId = Integer.parseInt(req.getParameter("itemId"));
-            cartService.removeItem(account, itemId);
-
-        } catch (NumberFormatException e) {
+        int itemId = FormValidation.positiveInteger(req.getParameter("itemId"), 0);
+        if (itemId == 0) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mã mặt hàng không hợp lệ.");
+            return;
         }
+        cartService.removeItem(account, itemId);
 
         session.setAttribute("cartCount", cartService.getTotalItemCount(account));
 
